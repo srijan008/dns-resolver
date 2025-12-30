@@ -82,8 +82,7 @@ function parseSections(buffer: Buffer, count: number, startOffset: number) {
 }
 
 function parseRecord(buffer: Buffer, offset: number): DNSRecord {
-  // Extracts the domain name at the current offset for all record types, as every DNS record
-  // starts with the domain name it's associated with.
+
   const domainNameData = parseDomainName(buffer, offset)
   offset = domainNameData.newOffset
 
@@ -99,10 +98,6 @@ function parseRecord(buffer: Buffer, offset: number): DNSRecord {
   let rdata: string
 
   if (type === NS_RECORD_TYPE) {
-    // Additional call to parseDomainName for NS_RECORD_TYPE because in NS records, the rdata
-    // section itself contains a domain name that needs to be parsed. This is unlike A or AAAA
-    // records where rdata contains an IP address and not a domain name.
-    // This domain name will be used to query the authoritative name server for the domain.
     const { domainName, newOffset } = parseDomainName(buffer, offset)
     offset = newOffset
     rdata = domainName
@@ -113,7 +108,7 @@ function parseRecord(buffer: Buffer, offset: number): DNSRecord {
       rdata: rdataBuffer,
       type,
     })
-    offset += dataLength // Update offset to the end of rdata
+    offset += dataLength 
   }
 
   return {

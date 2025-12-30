@@ -1,11 +1,11 @@
 export function encodeDomainName(domain: string) {
-  const parts = domain.split('.') // Split the domain into its labels
+  const parts = domain.split('.')
   const buffers = parts.map((part) => {
-    const length = Buffer.from([part.length]) // Create a buffer for the length
-    const content = Buffer.from(part, 'ascii') // Create a buffer for the label content
-    return Buffer.concat([length, content]) // Combine length and content
+    const length = Buffer.from([part.length]) 
+    const content = Buffer.from(part, 'ascii')
+    return Buffer.concat([new Uint8Array(length), new Uint8Array(content)])
   })
 
-  // Combine all parts and add a null byte at the end to signify the end of the domain name
-  return Buffer.concat([...buffers, Buffer.from([0])])
+  
+  return Buffer.concat([...buffers.map(b => new Uint8Array(b)), new Uint8Array([0])])
 }

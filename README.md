@@ -413,3 +413,5 @@ Masking is the process of using a bitmask to isolate or modify specific bits in 
      - If the mask bit is `0`, the original bit is cleared (set to `0`).
 
 ##
+#   d n s - r e s o l v e r  
+ 
