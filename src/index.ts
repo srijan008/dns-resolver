@@ -18,9 +18,17 @@ export const AAAA_RECORD_TYPE = 28
 export const NS_RECORD_TYPE = 2
 const DOMAIN_TO_RESOLVE = 'www.google.com'
 
+const cache = new Map<string, { value: string; expiresAt: number }>()
 
 
 function queryDNS(domain: string, server: string) {
+  if (cache.has(domain)) {
+    const entry = cache.get(domain)!
+    if (Date.now() < entry.expiresAt) {
+      return entry.value
+    }
+  }
+
   const ipVersion = net.isIP(server)
   const socketType = ipVersion === 6 ? 'udp6' : 'udp4'
 
@@ -75,9 +83,9 @@ function processDNSResponse(response: ReturnType<typeof parseResponse>) {
   } else {
     
     const answerRecord = response.answerRecords[0] as DNSRecord
+    cache.set(DOMAIN_TO_RESOLVE, { value: answerRecord.rdata, expiresAt: Date.now() + 3600000 })
     console.log('IP Address found: ', answerRecord.rdata)
   }
 }
-
 
 queryDNS(DOMAIN_TO_RESOLVE, ROOT_DNS_SERVER)
