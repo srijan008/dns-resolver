@@ -47,7 +47,7 @@ The objective of this project is to replicate the behavior of a DNS resolver and
 - Networking fundamentals  
 
 ## 🛠️ Tech Stack
-- 🐍 **Programming Language** – (C / C++ / Python / Go — depending on implementation)  
+- 🐍 **Programming Language** – (Nodejs)  
 - 🌐 **Networking Libraries / Sockets**  
 - 🗄️ **Local Cache / Data Structures**  
 
@@ -61,3 +61,4 @@ The objective of this project is to replicate the behavior of a DNS resolver and
 - Deep understanding of how the internet resolves domain names  
 - Hands-on experience with networking concepts  
 - Strong foundation for system design, cybersecurity, and backend roles  
+
