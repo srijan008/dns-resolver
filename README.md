@@ -40,4 +40,4 @@ npm install
 
 ### Run the resolver
 ```bash
-npm run start
+npm run dev
